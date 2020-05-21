@@ -36,8 +36,19 @@
 (use-package company
   :ensure t
   :config
-  (setq company-tooltip-align-annotations t)
+  (setq company-tooltip-align-annotations t
+	company-minimum-prefix-length 1
+	company-idle-delay 0.0)
   (global-company-mode))
+
+(use-package helm
+  :ensure t
+  :bind
+  (("C-x C-f" . 'helm-find-files))
+  :config
+  (require 'helm-config)
+  (helm-mode 1)
+  )
 
 (use-package lsp-mode
   :ensure t
@@ -51,6 +62,18 @@
 
 (use-package lsp-ui
   :ensure t)
+
+(use-package lsp-treemacs
+  :ensure t
+  :config
+  (lsp-treemacs-sync-mode 1))
+
+(use-package helm-lsp
+  :ensure t
+  :config
+  ;; this is not quite working right.  See https://github.com/emacs-lsp/helm-lspL
+  (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol)
+  )
 
 (use-package company-lsp
   :ensure t)
@@ -71,14 +94,6 @@
   :ensure t
   :config
   (pyvenv-mode 1))
-
-(use-package helm
-  :ensure t
-  :bind
-  (("C-x C-f" . 'helm-find-files))
-  :config
-  (require 'helm-config)
-  (helm-mode 1))
 
 (use-package projectile
   :ensure t
@@ -237,3 +252,10 @@
 ;; non package scripts
 (add-to-list 'load-path "~/.emacs.d/thirdpartyscripts")
 (load "gendoxy.el")
+
+;;
+(use-package which-key
+  :ensure t
+  :config
+  (setq which-key-popup-type 'frame)
+  (which-key-mode))
