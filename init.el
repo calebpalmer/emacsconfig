@@ -132,6 +132,7 @@
   )
 
 (add-hook 'c++-mode-hook 'cap/c++-mode-hook)
+(add-hook 'c-mode-hook 'cap/c++-mode-hook)
 (add-to-list 'auto-mode-alist '("\\.tpp\\'" . c++-mode))
 
 ;; don't want to indent on namespaces
