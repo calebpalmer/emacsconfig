@@ -30,9 +30,6 @@
   :config
   (auto-package-update-maybe))
 
-(use-package yasnippet
-  :ensure t)
-
 (use-package company
   :ensure t
   :config
@@ -164,7 +161,9 @@
 (c-add-style "my-cc-mode" my-cc-style)
 
 (use-package yasnippet
-  :ensure t)
+  :ensure t
+  :config
+  (yas-global-mode))
 
 (use-package yasnippet-snippets
   :ensure t)
@@ -172,7 +171,7 @@
 (use-package tide
   :ensure t
   :config
-  (add-hook 'before-save-hook 'tide-format-before-save)    
+  (add-hook 'before-save-hook 'tide-format-before-save)
   (add-hook 'typescript-mode-hook
     	    (lambda ()
 		 (tide-setup)
