@@ -115,7 +115,24 @@
   (global-set-key [f8] 'neotree-toggle))
 
 (use-package magit
-  :ensure t)
+  :ensure t
+  :config
+  (setq magit-display-buffer-function
+      (lambda (buffer)
+        (display-buffer
+         buffer
+         (cond ((and (derived-mode-p 'magit-mode)
+                     (eq (with-current-buffer buffer major-mode)
+                         'magit-status-mode))
+                nil)
+               ((memq (with-current-buffer buffer major-mode)
+                      '(magit-process-mode
+                        magit-revision-mode
+                        magit-diff-mode
+                        magit-stash-mode))
+                nil)
+               (t
+                '(display-buffer-same-window)))))))
 
 (use-package clang-format+
   :ensure t
