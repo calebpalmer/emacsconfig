@@ -17,8 +17,8 @@
 (global-set-key (kbd "M-p") 'switch-to-buffer)
 
 ;; show trailing white space
-(add-hook 'hack-local-variables-hook
-	  (lambda () (setq show-trailing-whitespace t)))
+;; (add-hook 'hack-local-variables-hook
+;; 	  (lambda () (setq show-trailing-whitespace t)))
 
 ;; disable toolbar
 (tool-bar-mode -1)
@@ -35,7 +35,7 @@
   :config
   (setq company-tooltip-align-annotations t
 	company-minimum-prefix-length 1
-	company-idle-delay 0.0)
+	company-idle-delay 0.2)
   (global-company-mode))
 
 (use-package helm
@@ -58,7 +58,9 @@
   (add-hook 'c-mode-hook 'lsp))
 
 (use-package lsp-ui
-  :ensure t)
+  :ensure t
+  :config
+  (setq lsp-ui-doc-enable nil))
 
 (use-package lsp-treemacs
   :ensure t
@@ -116,6 +118,8 @@
 
 (use-package magit
   :ensure t
+  :bind
+  (("C-x g" . 'magit-status))  
   :config
   (setq magit-display-buffer-function
       (lambda (buffer)
