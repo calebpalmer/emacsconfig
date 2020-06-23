@@ -12,6 +12,8 @@
 (setq custom-file (concat user-emacs-directory "/custom.el"))
 (load-file custom-file)
 
+
+
 ;; global key bindings
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-p") 'switch-to-buffer)
@@ -146,40 +148,13 @@
 (defun cap/c++-mode-hook ()
   (local-set-key (kbd "<f12>") 'compile)
   (local-set-key (kbd "<f9>") 'ff-find-other-file)
+  (setq tab-width 4)
   ;; (lsp)
   )
 
 (add-hook 'c++-mode-hook 'cap/c++-mode-hook)
 (add-hook 'c-mode-hook 'cap/c++-mode-hook)
 (add-to-list 'auto-mode-alist '("\\.tpp\\'" . c++-mode))
-
-;; don't want to indent on namespaces
-;; copied this from the "gnu" syle
-(defconst my-cc-style
-  '("gnu"
-  (c-basic-offset . 4)
-  (c-comment-only-line-offset 0 . 0)
-  (c-hanging-braces-alist
-   (substatement-open before after)
-   (arglist-cont-nonempty))
-  (c-offsets-alist
-   (statement-block-intro . +)
-   (knr-argdecl-intro . 5)
-   (substatement-open . +)
-   (substatement-label . 0)
-   (label . 0)
-   (statement-case-open . +)
-   (statement-cont . +)
-   (arglist-intro . c-lineup-arglist-intro-after-paren)
-   (arglist-close . c-lineup-arglist)
-   (inline-open . 0)
-   (innamespace . [0])
-   (brace-list-open . +)
-   (brace-list-intro . c-lineup-arglist-intro-after-paren)
-   (topmost-intro-cont first c-lineup-topmost-intro-cont c-lineup-gnu-DEFUN-intro-cont))
-  (c-special-indent-hook . c-gnu-impose-minimum)
-  (c-block-comment-prefix . #1="")))
-(c-add-style "my-cc-mode" my-cc-style)
 
 (use-package yasnippet
   :ensure t
@@ -273,6 +248,11 @@
 ;; non package scripts
 (add-to-list 'load-path "~/.emacs.d/thirdpartyscripts")
 (load "gendoxy.el")
+
+;; zoom
+(load "zoom-frm.el")
+(global-set-key (kbd "C-x C-=") 'zoom-in)
+(global-set-key (kbd "C-x C--") 'zoom-out)
 
 ;;
 (use-package which-key
