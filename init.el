@@ -65,15 +65,10 @@
   (add-hook 'c++-mode-hook 'lsp)
   (add-hook 'c-mode-hook 'lsp))
 
-(use-package lsp-ui
-  :ensure t
-  :config
-  (setq lsp-ui-doc-enable nil))
-
-(use-package lsp-treemacs
-  :ensure t
-  :config
-  (lsp-treemacs-sync-mode 1))
+;; (use-package lsp-treemacs
+;;   :ensure t
+;;   :config
+;;   (lsp-treemacs-sync-mode 1))
 
 (use-package helm-lsp
   :ensure t
@@ -81,6 +76,11 @@
   ;; this is not quite working right.  See https://github.com/emacs-lsp/helm-lspL
   (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol)
   )
+
+(use-package lsp-ui
+  :ensure t
+  :config
+  (setq lsp-ui-doc-enable nil))
 
 (use-package company-lsp
   :ensure t)
@@ -96,6 +96,12 @@
   ((elpy-rpc-python-command "python3" "The python command"))
   :config
   (elpy-enable))
+
+(use-package blacken
+  :ensure t
+  :config
+  (add-hook 'python-mode-hook 'blacken-mode)
+  )
 
 (use-package pyvenv
   :ensure t
