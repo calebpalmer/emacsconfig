@@ -25,6 +25,12 @@
 ;; disable toolbar
 (tool-bar-mode -1)
 
+;; scroll settings
+(setq scroll-preserve-screen-position 1)
+(setq scroll-step            1
+      scroll-conservatively  10000)
+
+
 ;; store all backup and autosave files in the tmp dir
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))
@@ -224,6 +230,12 @@
   :ensure t
   :config
   (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode)))
+
+(use-package docker
+  :ensure t)
+
+(use-package dockerfile-mode
+  :ensure t)
 
 (use-package docker-compose-mode
   :ensure t)
