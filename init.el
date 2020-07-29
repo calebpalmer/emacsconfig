@@ -91,10 +91,17 @@
 (use-package company-lsp
   :ensure t)
 
-(use-package dracula-theme
+;; (use-package dracula-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'dracula t)
+;;   )
+
+(use-package doom-themes
   :ensure t
   :config
-  (load-theme 'dracula t))
+  (load-theme 'doom-one)
+  )
 
 (use-package elpy
   :ensure t
@@ -284,3 +291,4 @@
   :config
   (setq which-key-popup-type 'frame)
   (which-key-mode))
+
