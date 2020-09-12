@@ -13,14 +13,24 @@
 (load-file custom-file)
 
 
+(add-hook 'after-init-hook 'global-hl-line-mode)
+;; Highlight corresponding parentheses when cursor is on one
+(setq show-paren-delay 0) ;; shows matching parenthesis asap
+(show-paren-mode t)
+
+;; Proper line wrapping
+(global-visual-line-mode t)
 
 ;; global key bindings
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-p") 'switch-to-buffer)
 
-;; show trailing white space
-;; (add-hook 'hack-local-variables-hook
-;; 	  (lambda () (setq show-trailing-whitespace t)))
+;; Show trailing white spaces
+(setq-default show-trailing-whitespace t)
+
+;; Remove useless whitespace before saving a file
+(add-hook 'before-save-hook 'whitespace-cleanup)
+(add-hook 'before-save-hook (lambda() (delete-trailing-whitespace)))
 
 ;; disable toolbar
 (tool-bar-mode -1)
@@ -91,16 +101,19 @@
 (use-package company-lsp
   :ensure t)
 
-;; (use-package dracula-theme
-;;   :ensure t
-;;   :config
-;;   (load-theme 'dracula t)
-;;   )
-
 (use-package doom-themes
   :ensure t
   :config
   (load-theme 'doom-one)
+  (doom-themes-neotree-config) ;; loads doom theme for the file tree Neotree
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+	doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  ;; Enable all-the-icons beautiful icons for the Neotree doom theme
+  (setq doom-neotree-enable-file-icons t)
+  (setq doom-neotree-enable-folder-icons t)
+  (setq doom-neotree-enable-chevron-icons t)
+  ;; Enables different colors for different file types for the Neotree doom theme
+  (setq doom-neotree-enable-type-colors t)
   )
 
 (use-package elpy
@@ -146,24 +159,24 @@
 (use-package magit
   :ensure t
   :bind
-  (("C-x g" . 'magit-status))  
+  (("C-x g" . 'magit-status))
   :config
   (setq magit-display-buffer-function
       (lambda (buffer)
-        (display-buffer
-         buffer
-         (cond ((and (derived-mode-p 'magit-mode)
-                     (eq (with-current-buffer buffer major-mode)
-                         'magit-status-mode))
-                nil)
-               ((memq (with-current-buffer buffer major-mode)
-                      '(magit-process-mode
-                        magit-revision-mode
-                        magit-diff-mode
-                        magit-stash-mode))
-                nil)
-               (t
-                '(display-buffer-same-window)))))))
+	(display-buffer
+	 buffer
+	 (cond ((and (derived-mode-p 'magit-mode)
+		     (eq (with-current-buffer buffer major-mode)
+			 'magit-status-mode))
+		nil)
+	       ((memq (with-current-buffer buffer major-mode)
+		      '(magit-process-mode
+			magit-revision-mode
+			magit-diff-mode
+			magit-stash-mode))
+		nil)
+	       (t
+		'(display-buffer-same-window)))))))
 
 (use-package clang-format+
   :ensure t
@@ -194,7 +207,7 @@
   :config
   (add-hook 'before-save-hook 'tide-format-before-save)
   (add-hook 'typescript-mode-hook
-    	    (lambda ()
+	    (lambda ()
 		 (tide-setup)
 		 (flycheck-mode +1)
 		 (setq flycheck-check-syntax-automatically '(save mode-enabled))
@@ -222,6 +235,39 @@
   :ensure t
   :config
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  )
+
+;; sudo npm install -g js-beautify
+(use-package web-beautify
+  :ensure t
+  :config
+  (eval-after-load 'js2-mode
+    '(add-hook 'js2-mode-hook
+	       (lambda ()
+		 (add-hook 'before-save-hook 'web-beautify-js-buffer t t))))
+  ;; Or if you're using 'js-mode' (a.k.a 'javascript-mode')
+  (eval-after-load 'js
+    '(add-hook 'js-mode-hook
+	       (lambda ()
+		 (add-hook 'before-save-hook 'web-beautify-js-buffer t t))))
+
+  (eval-after-load 'json-mode
+    '(add-hook 'json-mode-hook
+	       (lambda ()
+		 (add-hook 'before-save-hook 'web-beautify-js-buffer t t))))
+  (eval-after-load 'web-mode
+    '(add-hook 'web-mode-hook
+	       (lambda ()
+		 (add-hook 'before-save-hook 'web-beautify-html-buffer t t))))
+  (eval-after-load 'css-mode
+    '(add-hook 'css-mode-hook
+	       (lambda ()
+		 (add-hook 'before-save-hook 'web-beautify-css-buffer t t))))
+
+  (eval-after-load 'sgml-mode
+    '(add-hook 'html-mode-hook
+	       (lambda ()
+		 (add-hook 'before-save-hook 'web-beautify-html-buffer t t))))
   )
 
 (use-package emmet-mode
@@ -292,3 +338,22 @@
   (setq which-key-popup-type 'frame)
   (which-key-mode))
 
+(use-package hyperbole
+  :ensure t)
+
+;; Adds Nice Icons to Emacs so that other themes can use them (required for Doom theme below)
+;; run M-x all-the-icons-install-fonts RET to install the fonts
+(use-package all-the-icons
+  :ensure t)
+
+(use-package smart-mode-line
+  :ensure t
+  :config
+  ;; Smart-mode-line makes the mode-line better to read
+  ;; first remove annoying message at startup that
+  ;; asks if you want to run the theme lisp code
+  (setq sml/no-confirm-load-theme t)
+  ;; load smart-mode-line
+  ;; (setq sml/theme 'dark) ;; changes the theme to dark
+  (sml/setup) ;; automatically figures out a theme if none is specified
+  )
