@@ -365,3 +365,6 @@
   ;; (setq sml/theme 'dark) ;; changes the theme to dark
   (sml/setup) ;; automatically figures out a theme if none is specified
   )
+
+(use-package org-attach-screenshot
+  :ensure t)
