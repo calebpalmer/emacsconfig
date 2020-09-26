@@ -13,6 +13,9 @@
 (load-file custom-file)
 
 
+(yas-global-mode)
+(add-hook 'yas-minor-mode-hook (lambda () (yas-activate-extra-mode 'fundamental-mode)))
+
 (add-hook 'after-init-hook 'global-hl-line-mode)
 ;; Highlight corresponding parentheses when cursor is on one
 (setq show-paren-delay 0) ;; shows matching parenthesis asap
@@ -138,6 +141,7 @@
   :ensure t
   :custom
   (projectile-switch-project-action 'projectile-dired)
+  ;;(projectile-switch-project-action ’neotree-projectile-action)
   :config
   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
@@ -153,8 +157,12 @@
 
 (use-package neotree
   :ensure t
+  :custom
+  (neotree-refresh t)
+  (neo-window-fixed-size nil)
   :config
-  (global-set-key [f8] 'neotree-toggle))
+  ;;(global-set-key [f8] 'neotree-toggle)
+  (global-set-key [f8] 'neotree-projectile-action))
 
 (use-package magit
   :ensure t
