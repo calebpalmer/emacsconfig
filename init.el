@@ -368,3 +368,5 @@
 
 (use-package org-attach-screenshot
   :ensure t)
+
+(load-file (concat user-emacs-directory "/myscripts/my-projectile.el"))
