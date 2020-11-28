@@ -50,6 +50,15 @@
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 
+;; cc style
+(defconst my-cc-style
+ '("linux" ; this is inheritance from the linux style
+   (c-offsets-alist . ((innamespace . [0])))))
+
+(c-add-style "my-cc-style" my-cc-style)
+(setq c-default-style "my-cc-style")
+
+;; packages
 (require 'use-package)
 
 (use-package auto-package-update

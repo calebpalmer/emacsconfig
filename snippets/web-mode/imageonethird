@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: imageonethird
+# key: /imageonethird
+# --
+<div class="column is-one-third" [ngClass]="{'center' : this.deviceDetectorService.isMobile()}">
+     <a href="${mm-link}" target="_">
+	<img alt="${alt-text}" src="${img-link}" />
+     </a>
+</div>

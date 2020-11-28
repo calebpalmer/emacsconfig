@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: includeguard
+# key: /includeguard
+# --
+
+#ifndef ${1:PREFIX}_${2:`(upcase (file-name-nondirectory (file-name-sans-extension (buffer-file-name))))`_H_}
+#define $1_$2
+
+$0
+
+#endif /* $1_$2 */
