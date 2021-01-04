@@ -3,7 +3,7 @@
 # key: /includeguard
 # --
 
-#ifndef ${1:PREFIX}_${2:`(upcase (file-name-nondirectory (file-name-sans-extension (buffer-file-name))))`_H_}
+#ifndef ${1:PREFIX}_${2:`(upcase (file-name-nondirectory (file-name-sans-extension (buffer-file-name))))`_H}
 #define $1_$2
 
 $0

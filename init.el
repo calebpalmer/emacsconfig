@@ -37,6 +37,8 @@
 
 ;; disable toolbar
 (tool-bar-mode -1)
+(set-default 'truncate-lines t)
+
 
 ;; scroll settings
 (setq scroll-preserve-screen-position 1)
@@ -49,14 +51,6 @@
       `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
-
-;; cc style
-(defconst my-cc-style
- '("linux" ; this is inheritance from the linux style
-   (c-offsets-alist . ((innamespace . [0])))))
-
-(c-add-style "my-cc-style" my-cc-style)
-(setq c-default-style "my-cc-style")
 
 ;; packages
 (require 'use-package)
@@ -83,6 +77,9 @@
   (helm-mode 1)
   )
 
+(use-package popwin
+  :ensure t)
+
 (use-package lsp-mode
   :ensure t
   :custom
@@ -92,6 +89,8 @@
   (setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-cppcheck c/c++-gcc))
   (add-hook 'c++-mode-hook 'lsp)
   (add-hook 'c-mode-hook 'lsp))
+
+
 
 ;; (use-package lsp-treemacs
 ;;   :ensure t
@@ -117,15 +116,15 @@
   :ensure t
   :config
   (load-theme 'doom-one)
-  (doom-themes-neotree-config) ;; loads doom theme for the file tree Neotree
+  ;;(doom-themes-neotree-config) ;; loads doom theme for the file tree Neotree
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
 	doom-themes-enable-italic t) ; if nil, italics is universally disabled
   ;; Enable all-the-icons beautiful icons for the Neotree doom theme
-  (setq doom-neotree-enable-file-icons t)
-  (setq doom-neotree-enable-folder-icons t)
-  (setq doom-neotree-enable-chevron-icons t)
+  ;;(setq doom-neotree-enable-file-icons t)
+  ;;(setq doom-neotree-enable-folder-icons t)
+  ;;(setq doom-neotree-enable-chevron-icons t)
   ;; Enables different colors for different file types for the Neotree doom theme
-  (setq doom-neotree-enable-type-colors t)
+  ;;(setq doom-neotree-enable-type-colors t)
   )
 
 (use-package elpy
@@ -133,13 +132,10 @@
   :custom
   ((elpy-rpc-python-command "python3" "The python command"))
   :config
-  (elpy-enable))
-
-(use-package blacken
-  :ensure t
-  :config
-  (add-hook 'python-mode-hook 'blacken-mode)
-  )
+  (elpy-enable)
+  (add-hook 'elpy-mode-hook (lambda ()
+			    (add-hook 'before-save-hook
+				      'elpy-black-fix-code nil t))))
 
 (use-package pyvenv
   :ensure t
@@ -149,8 +145,7 @@
 (use-package projectile
   :ensure t
   :custom
-  (projectile-switch-project-action 'projectile-dired)
-  ;;(projectile-switch-project-action ’neotree-projectile-action)
+  (projectile-switch-project-action 'projectile-commander)
   :config
   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
@@ -159,19 +154,19 @@
   (add-to-list 'projectile-globally-ignored-directories "builds")
   (projectile-mode +1))
 
-(use-package helm-projectile
-  :ensure t
-  :config
-  (helm-projectile-on))
+;; (use-package helm-projectile
+;;   :ensure t
+;;   :config
+;;   (helm-projectile-on))
 
-(use-package neotree
-  :ensure t
-  :custom
-  (neotree-refresh t)
-  (neo-window-fixed-size nil)
-  :config
-  ;;(global-set-key [f8] 'neotree-toggle)
-  (global-set-key [f8] 'neotree-projectile-action))
+;; (use-package neotree
+;;   :ensure t
+;;   :custom
+;;   (neotree-refresh t)
+;;   (neo-window-fixed-size nil)
+;;   :config
+;;   ;;(global-set-key [f8] 'neotree-toggle)
+;;   (global-set-key [f8] 'neotree-projectile-action))
 
 (use-package magit
   :ensure t
@@ -219,6 +214,24 @@
 (use-package yasnippet-snippets
   :ensure t)
 
+(use-package treemacs
+  :ensure t
+  :bind (("<f8>" . 'treemacs))
+  :config
+  (progn
+    (setq treemacs-width 60)
+    (treemacs-follow-mode nil)
+    (treemacs-git-mode t)
+    (treemacs-filewatch-mode t)
+    )
+  )
+
+(use-package treemacs-projectile
+  :ensure t)
+
+(use-package realgud
+  :ensure t)
+
 (use-package tide
   :ensure t
   :config
@@ -239,14 +252,6 @@
 (use-package typescript-mode
   :ensure t
 )
-
-;; (use-package ng2-mode
-;;   :ensure t
-;;   :config
-;;   (with-eval-after-load 'typescript-mode (add-hook 'typescript-mode-hook #'lsp))
-;;   (add-hook 'typescript-mode-hook 'ng2-ts-mode)
-;;   (add-hook 'mhtml-mode-hook 'ng2-html-mode)
-;;   )
 
 (use-package web-mode
   :ensure t
@@ -348,16 +353,6 @@
 (global-set-key (kbd "C-x C-=") 'zoom-in)
 (global-set-key (kbd "C-x C--") 'zoom-out)
 
-;;
-(use-package which-key
-  :ensure t
-  :config
-  (setq which-key-popup-type 'frame)
-  (which-key-mode))
-
-(use-package hyperbole
-  :ensure t)
-
 ;; Adds Nice Icons to Emacs so that other themes can use them (required for Doom theme below)
 ;; run M-x all-the-icons-install-fonts RET to install the fonts
 (use-package all-the-icons
@@ -379,3 +374,88 @@
   :ensure t)
 
 (load-file (concat user-emacs-directory "/myscripts/my-projectile.el"))
+(put 'narrow-to-region 'disabled nil)
+
+;; cc style
+
+;; This was created by using c-guess-no-install and then c-guess-view
+;; https://stackoverflow.com/a/39907217
+(c-add-style "my-cc-style"
+	     '("linux"
+	       (c-basic-offset . 2)	; Guessed value
+	       (c-offsets-alist
+		(arglist-cont . 0)	; Guessed value
+		(arglist-intro . ++)	; Guessed value
+		(defun-block-intro . +)	; Guessed value
+		(defun-close . 0)	; Guessed value
+		(defun-open . 0)	; Guessed value
+		(innamespace . 0)	; Guessed value
+		(namespace-close . 0)	; Guessed value
+		(namespace-open . 0)	; Guessed value
+		(topmost-intro . 0)	; Guessed value
+		(topmost-intro-cont . ++) ; Guessed value
+		(access-label . -)
+		(annotation-top-cont . 0)
+		(annotation-var-cont . +)
+		(arglist-close . c-lineup-close-paren)
+		(arglist-cont-nonempty . c-lineup-arglist)
+		(block-close . 0)
+		(block-open . 0)
+		(brace-entry-open . 0)
+		(brace-list-close . 0)
+		(brace-list-entry . c-lineup-under-anchor)
+		(brace-list-intro . +)
+		(brace-list-open . 0)
+		(c . c-lineup-C-comments)
+		(case-label . 0)
+		(catch-clause . 0)
+		(class-close . 0)
+		(class-open . 0)
+		(comment-intro . c-lineup-comment)
+		(composition-close . 0)
+		(composition-open . 0)
+		(cpp-define-intro c-lineup-cpp-define +)
+		(cpp-macro . -1000)
+		(cpp-macro-cont . +)
+		(do-while-closure . 0)
+		(else-clause . 0)
+		(extern-lang-close . 0)
+		(extern-lang-open . 0)
+		(friend . 0)
+		(func-decl-cont . +)
+		(inclass . +)
+		(incomposition . +)
+		(inexpr-class . +)
+		(inexpr-statement . +)
+		(inextern-lang . +)
+		(inher-cont . c-lineup-multi-inher)
+		(inher-intro . +)
+		(inlambda . c-lineup-inexpr-block)
+		(inline-close . 0)
+		(inline-open . +)
+		(inmodule . +)
+		(knr-argdecl . 0)
+		(knr-argdecl-intro . 0)
+		(label . 0)
+		(lambda-intro-cont . +)
+		(member-init-cont . c-lineup-multi-inher)
+		(member-init-intro . +)
+		(module-close . 0)
+		(module-open . 0)
+		(objc-method-args-cont . c-lineup-ObjC-method-args)
+		(objc-method-call-cont c-lineup-ObjC-method-call-colons c-lineup-ObjC-method-call +)
+		(objc-method-intro .
+				   [0])
+		(statement . 0)
+		(statement-block-intro . +)
+		(statement-case-intro . +)
+		(statement-case-open . 0)
+		(statement-cont . +)
+		(stream-op . c-lineup-streamop)
+		(string . -1000)
+		(substatement . +)
+		(substatement-label . 0)
+		(substatement-open . 0)
+		(template-args-cont c-lineup-template-args +))))
+
+(setq c-default-style "my-cc-style")
