@@ -55,18 +55,18 @@
 ;; packages
 (require 'use-package)
 
-(use-package auto-package-update
-  :ensure t
-  :config
-  (auto-package-update-maybe))
-
 (use-package company
   :ensure t
   :config
   (setq company-tooltip-align-annotations t
 	company-minimum-prefix-length 1
 	company-idle-delay 0.2)
-  (global-company-mode))
+  ;;(global-company-mode)
+  (add-hook 'c++-mode (company-mode))
+  (add-hook 'c-mode (company-mode))
+  (add-hook 'python-mode (company-mode))
+  ;;; modes to disable company mode
+  )
 
 (use-package helm
   :ensure t
@@ -89,13 +89,6 @@
   (setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-cppcheck c/c++-gcc))
   (add-hook 'c++-mode-hook 'lsp)
   (add-hook 'c-mode-hook 'lsp))
-
-
-
-;; (use-package lsp-treemacs
-;;   :ensure t
-;;   :config
-;;   (lsp-treemacs-sync-mode 1))
 
 (use-package helm-lsp
   :ensure t
@@ -228,6 +221,11 @@
 
 (use-package treemacs-projectile
   :ensure t)
+
+;; (use-package lsp-treemacs
+;;   :ensure t
+;;   :config
+;;   (lsp-treemacs-sync-mode 1))
 
 (use-package realgud
   :ensure t)
@@ -372,6 +370,21 @@
 
 (use-package org-attach-screenshot
   :ensure t)
+
+(use-package eyebrowse
+  :ensure t
+  :diminish eyebrowse-mode
+  :config (progn
+	    (define-key eyebrowse-mode-map (kbd "M-1") 'eyebrowse-switch-to-window-config-1)
+	    (define-key eyebrowse-mode-map (kbd "M-2") 'eyebrowse-switch-to-window-config-2)
+	    (define-key eyebrowse-mode-map (kbd "M-3") 'eyebrowse-switch-to-window-config-3)
+	    (define-key eyebrowse-mode-map (kbd "M-4") 'eyebrowse-switch-to-window-config-4)
+	    (define-key eyebrowse-mode-map (kbd "M-5") 'eyebrowse-switch-to-window-config-5)
+	    (define-key eyebrowse-mode-map (kbd "M-6") 'eyebrowse-switch-to-window-config-6)
+	    (define-key eyebrowse-mode-map (kbd "M-7") 'eyebrowse-switch-to-window-config-7)
+	    (define-key eyebrowse-mode-map (kbd "M-8") 'eyebrowse-switch-to-window-config-8)
+	    (eyebrowse-mode t)
+	    (setq eyebrowse-new-workspace t)))
 
 (load-file (concat user-emacs-directory "/myscripts/my-projectile.el"))
 (put 'narrow-to-region 'disabled nil)
