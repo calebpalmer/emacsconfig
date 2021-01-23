@@ -75,6 +75,12 @@
   :config
   (require 'helm-config)
   (helm-mode 1)
+  ;; Make helm show on bottom always.
+  (add-to-list 'display-buffer-alist
+		    `(,(rx bos "*helm" (* not-newline) "*" eos)
+			 (display-buffer-in-side-window)
+			 (inhibit-same-window . t)
+			 (window-height . 0.4)))
   )
 
 (use-package popwin
