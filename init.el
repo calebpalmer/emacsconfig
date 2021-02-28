@@ -1,5 +1,6 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
@@ -29,7 +30,7 @@
 (global-set-key (kbd "M-p") 'switch-to-buffer)
 
 ;; Show trailing white spaces
-(setq-default show-trailing-whitespace t)
+(setq-default show-trailing-whitespace nil)
 
 ;; Remove useless whitespace before saving a file
 (add-hook 'before-save-hook 'whitespace-cleanup)
@@ -61,17 +62,18 @@
   (setq company-tooltip-align-annotations t
 	company-minimum-prefix-length 1
 	company-idle-delay 0.2)
-  ;;(global-company-mode)
-  (add-hook 'c++-mode (company-mode))
-  (add-hook 'c-mode (company-mode))
-  (add-hook 'python-mode (company-mode))
-  ;;; modes to disable company mode
+  (global-company-mode)
+  (with-eval-after-load "company"
+    (define-key company-active-map (kbd "C-p") #'company-select-previous-or-abort)
+    (define-key company-active-map (kbd "C-n") #'company-select-next-or-abort))
   )
 
 (use-package helm
   :ensure t
   :bind
-  (("C-x C-f" . 'helm-find-files))
+  (("C-x C-f" . 'helm-find-files)
+   ("M-O" . 'helm-occur)
+   )
   :config
   (require 'helm-config)
   (helm-mode 1)
@@ -80,8 +82,10 @@
 		    `(,(rx bos "*helm" (* not-newline) "*" eos)
 			 (display-buffer-in-side-window)
 			 (inhibit-same-window . t)
-			 (window-height . 0.4)))
-  )
+			 (window-height . 0.4))))
+
+(use-package helm-swoop
+  :bind (("M-S" . 'helm-swoop)))
 
 (use-package popwin
   :ensure t)
@@ -96,13 +100,6 @@
   (add-hook 'c++-mode-hook 'lsp)
   (add-hook 'c-mode-hook 'lsp))
 
-(use-package helm-lsp
-  :ensure t
-  :config
-  ;; this is not quite working right.  See https://github.com/emacs-lsp/helm-lspL
-  (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol)
-  )
-
 (use-package lsp-ui
   :ensure t
   :config
@@ -110,6 +107,8 @@
 
 (use-package company-lsp
   :ensure t)
+
+(load-theme 'spacemacs-dark)
 
 (use-package doom-themes
   :ensure t
@@ -145,6 +144,7 @@
   :ensure t
   :custom
   (projectile-switch-project-action 'projectile-commander)
+  (projectile-current-project-on-switch 'keep)
   :config
   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
@@ -153,10 +153,10 @@
   (add-to-list 'projectile-globally-ignored-directories "builds")
   (projectile-mode +1))
 
-;; (use-package helm-projectile
-;;   :ensure t
-;;   :config
-;;   (helm-projectile-on))
+(use-package helm-projectile
+  :ensure t
+  :config
+  (helm-projectile-on))
 
 ;; (use-package neotree
 ;;   :ensure t
@@ -220,7 +220,6 @@
   (progn
     (setq treemacs-width 60)
     (treemacs-follow-mode nil)
-    (treemacs-git-mode t)
     (treemacs-filewatch-mode t)
     )
   )
@@ -374,6 +373,9 @@
   (sml/setup) ;; automatically figures out a theme if none is specified
   )
 
+(use-package org
+  :config)
+
 (use-package org-attach-screenshot
   :ensure t)
 
@@ -391,6 +393,10 @@
 	    (define-key eyebrowse-mode-map (kbd "M-8") 'eyebrowse-switch-to-window-config-8)
 	    (eyebrowse-mode t)
 	    (setq eyebrowse-new-workspace t)))
+
+;; (use-package perspective
+;;   :config
+;;   (persp-mode))
 
 (load-file (concat user-emacs-directory "/myscripts/my-projectile.el"))
 (put 'narrow-to-region 'disabled nil)
@@ -478,3 +484,40 @@
 		(template-args-cont c-lineup-template-args +))))
 
 (setq c-default-style "my-cc-style")
+
+(use-package rust-mode
+  :config
+  (add-hook 'rust-mode-hook
+	    (lambda () (progn
+			 (setq indent-tabs-mode nil)
+			 (lsp))))
+  (setq rust-format-on-save t))
+
+;; (use-package ivy)
+;; (use-package counsel)
+;; (use-package swiper
+;;   :custom
+;;   (ivy-height 20)
+;;   :config
+;;   (ivy-mode 1)
+;;   (setq ivy-use-virtual-buffers t)
+;;   (setq enable-recursive-minibuffers t)
+;;   ;; enable this if you want `swiper' to use it
+;;   ;; (setq search-default-mode #'char-fold-to-regexp)
+;;   (global-set-key (kbd "C-s") 'swiper-isearch)
+;;   (global-set-key (kbd "C-c C-r") 'ivy-resume)
+;;   (global-set-key (kbd "<f6>") 'ivy-resume)
+;;   (global-set-key (kbd "M-x") 'counsel-M-x)
+;;   (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+;;   (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+;;   (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+;;   (global-set-key (kbd "<f1> o") 'counsel-describe-symbol)
+;;   (global-set-key (kbd "<f1> l") 'counsel-find-library)
+;;   (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+;;   (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+;;   (global-set-key (kbd "C-c g") 'counsel-git)
+;;   (global-set-key (kbd "C-c j") 'counsel-git-grep)
+;;   (global-set-key (kbd "C-c k") 'counsel-ag)
+;;   (global-set-key (kbd "C-x l") 'counsel-locate)
+;;   (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+;;   (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history))
