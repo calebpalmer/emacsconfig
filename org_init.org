@@ -1,5 +1,5 @@
 * init
-  #+begin_src elisp
+  #+begin_src emacs-lisp
 
     ;; move custom-set-variables and custom-set-faces into another file
     (setq custom-file (concat user-emacs-directory "/custom.el"))
@@ -18,19 +18,26 @@
     ;; packages
     (require 'use-package)
 
-  (add-to-list 'load-path "~/.emacs.d/thirdpartyscripts")
+    (add-to-list 'load-path "~/.emacs.d/thirdpartyscripts")
 
   #+end_src
+
+  #+RESULTS:
+  | ~/.emacs.d/thirdpartyscripts | /home/caleb/.emacs.d/elpa/all-the-icons-20210119.2136 | /home/caleb/.emacs.d/elpa/auto-package-update-20200826.2227 | /home/caleb/.emacs.d/elpa/blacken-20200626.2018 | /home/caleb/.emacs.d/elpa/ccls-20200820.308 | /home/caleb/.emacs.d/elpa/clang-format+-20190824.2216 | /home/caleb/.emacs.d/elpa/clang-format-20191121.1708 | /home/caleb/.emacs.d/elpa/company-lsp-20190612.1553 | /home/caleb/.emacs.d/elpa/cquery-20190118.542 | /home/caleb/.emacs.d/elpa/docker-20200610.715 | /home/caleb/.emacs.d/elpa/docker-compose-mode-20200830.1336 | /home/caleb/.emacs.d/elpa/docker-tramp-20170207.325 | /home/caleb/.emacs.d/elpa/dockerfile-mode-20210106.235 | /home/caleb/.emacs.d/elpa/doom-themes-20201220.836 | /home/caleb/.emacs.d/elpa/dracula-theme-20201120.758 | /home/caleb/.emacs.d/elpa/elpy-20201115.1811 | /home/caleb/.emacs.d/elpa/company-20210122.2314 | /home/caleb/.emacs.d/elpa/elpygen-20171225.1736 | /home/caleb/.emacs.d/elpa/emmet-mode-20180613.341 | /home/caleb/.emacs.d/elpa/eyebrowse-20201107.955 | /home/caleb/.emacs.d/elpa/go-mode-20201204.1652 | /home/caleb/.emacs.d/elpa/helm-lsp-20200910.518 | /home/caleb/.emacs.d/elpa/helm-projectile-20201217.908 | /home/caleb/.emacs.d/elpa/helm-20210121.2112 | /home/caleb/.emacs.d/elpa/helm-core-20210120.757 | /home/caleb/.emacs.d/elpa/async-20210117.718 | /home/caleb/.emacs.d/elpa/highlight-indentation-20201110.1327 | /home/caleb/.emacs.d/elpa/hyperbole-7.1.3 | /home/caleb/.emacs.d/elpa/json-mode-20190123.422 | /home/caleb/.emacs.d/elpa/json-reformat-20160212.853 | /home/caleb/.emacs.d/elpa/json-snatcher-20200916.1717 | /home/caleb/.emacs.d/elpa/lsp-treemacs-20201230.2214 | /home/caleb/.emacs.d/elpa/lsp-ui-20210121.1429 | /home/caleb/.emacs.d/elpa/lsp-mode-20210122.947 | /home/caleb/.emacs.d/elpa/dash-functional-20210103.1524 | /home/caleb/.emacs.d/elpa/magit-20210123.446 | /home/caleb/.emacs.d/elpa/git-commit-20210115.2345 | /home/caleb/.emacs.d/elpa/markdown-mode-20210123.1547 | /home/caleb/.emacs.d/elpa/neotree-20200324.1946 | /home/caleb/.emacs.d/elpa/org-attach-screenshot-20201130.1607 | /home/caleb/.emacs.d/elpa/popup-20210108.1821 | /home/caleb/.emacs.d/elpa/popwin-20200908.816 | /home/caleb/.emacs.d/elpa/pyvenv-20201227.1623 | /home/caleb/.emacs.d/elpa/realgud-20201221.1435 | /home/caleb/.emacs.d/elpa/loc-changes-20200722.1111 | /home/caleb/.emacs.d/elpa/load-relative-20201130.2202 | /home/caleb/.emacs.d/elpa/restclient-20200901.1442 | /home/caleb/.emacs.d/elpa/smart-mode-line-20190527.1156 | /home/caleb/.emacs.d/elpa/rich-minority-20190419.1136 | /home/caleb/.emacs.d/elpa/spacemacs-theme-20210206.1428 | /home/caleb/.emacs.d/elpa/spinner-1.7.3 | /home/caleb/.emacs.d/elpa/tablist-20200427.2205 | /home/caleb/.emacs.d/elpa/test-simple-20200722.1121 | /home/caleb/.emacs.d/elpa/tide-20210105.812 | /home/caleb/.emacs.d/elpa/flycheck-20201228.2104 | /home/caleb/.emacs.d/elpa/transient-20210117.2008 | /home/caleb/.emacs.d/elpa/treemacs-projectile-20210107.1251 | /home/caleb/.emacs.d/elpa/treemacs-20210118.1552 | /home/caleb/.emacs.d/elpa/cfrs-20210121.2007 | /home/caleb/.emacs.d/elpa/posframe-20210118.42 | /home/caleb/.emacs.d/elpa/ht-20210119.741 | /home/caleb/.emacs.d/elpa/hydra-20201115.1055 | /home/caleb/.emacs.d/elpa/lv-20200507.1518 | /home/caleb/.emacs.d/elpa/pfuture-20200425.1357 | /home/caleb/.emacs.d/elpa/ace-window-20200606.1259 | /home/caleb/.emacs.d/elpa/avy-20201226.1734 | /home/caleb/.emacs.d/elpa/f-20191110.1357 | /home/caleb/.emacs.d/elpa/s-20180406.808 | /home/caleb/.emacs.d/elpa/dash-20210123.1222 | /home/caleb/.emacs.d/elpa/projectile-20210117.1224 | /home/caleb/.emacs.d/elpa/pkg-info-20150517.1143 | /home/caleb/.emacs.d/elpa/epl-20180205.2049 | /home/caleb/.emacs.d/elpa/typescript-mode-20201002.1109 | /home/caleb/.emacs.d/elpa/use-package-20210106.2145 | /home/caleb/.emacs.d/elpa/bind-key-20200805.1727 | /home/caleb/.emacs.d/elpa/web-beautify-20161115.2247 | /home/caleb/.emacs.d/elpa/web-mode-20201227.1048 | /home/caleb/.emacs.d/elpa/which-key-20201216.1720 | /home/caleb/.emacs.d/elpa/with-editor-20210117.2008 | /home/caleb/.emacs.d/elpa/yaml-mode-20201109.1026 | /home/caleb/.emacs.d/elpa/yasnippet-snippets-20210105.1346 | /home/caleb/.emacs.d/elpa/yasnippet-20200604.246 | /etc/emacs | /usr/local/share/emacs/26.3/site-lisp | /usr/local/share/emacs/site-lisp | /usr/share/emacs/site-lisp/dictionaries-common | /usr/share/emacs/site-lisp/cmake-data | /usr/share/emacs/site-lisp/autoconf | /usr/share/emacs/26.3/site-lisp | /usr/share/emacs/site-lisp | /usr/share/emacs/site-lisp/autoconf | /usr/share/emacs/site-lisp/clang-format | /usr/share/emacs/site-lisp/clang-format-10 | /usr/share/emacs/site-lisp/llvm-10 | /usr/share/emacs/site-lisp/llvm-9 | /usr/share/emacs/26.3/lisp | /usr/share/emacs/26.3/lisp/vc | /usr/share/emacs/26.3/lisp/url | /usr/share/emacs/26.3/lisp/textmodes | /usr/share/emacs/26.3/lisp/progmodes | /usr/share/emacs/26.3/lisp/play | /usr/share/emacs/26.3/lisp/org | /usr/share/emacs/26.3/lisp/nxml | /usr/share/emacs/26.3/lisp/net | /usr/share/emacs/26.3/lisp/mh-e | /usr/share/emacs/26.3/lisp/mail | /usr/share/emacs/26.3/lisp/leim | /usr/share/emacs/26.3/lisp/language | /usr/share/emacs/26.3/lisp/international | /usr/share/emacs/26.3/lisp/image | /usr/share/emacs/26.3/lisp/gnus | /usr/share/emacs/26.3/lisp/eshell | /usr/share/emacs/26.3/lisp/erc | /usr/share/emacs/26.3/lisp/emulation | /usr/share/emacs/26.3/lisp/emacs-lisp | /usr/share/emacs/26.3/lisp/cedet | /usr/share/emacs/26.3/lisp/calendar | /usr/share/emacs/26.3/lisp/calc | /usr/share/emacs/26.3/lisp/obsolete |
+
 * org
-#+begin_src elisp
+#+begin_src emacs-lisp
   (use-package org
     :config)
 
   (use-package org-attach-screenshot
     :ensure t)
 #+end_src
+
+#+RESULTS:
+
 * lsp
-  #+begin_src elisp
+  #+begin_src emacs-lisp
     (use-package lsp-mode
       :ensure t
       :custom
@@ -46,7 +53,7 @@
       :config
       (setq lsp-ui-doc-enable t)
       (setq lsp-ui-doc-delay 0.2)
-      (setq lsp-ui-doc-position 'at-point)
+      (setq lsp-ui-doc-position 'top)
       (setq lsp-ui-doc-use-webkit t)
       (setq lsp-ui-imenu-auto-refresh t)
       (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
@@ -55,8 +62,11 @@
     (use-package company-lsp
       :ensure t)
   #+end_src
+
+  #+RESULTS:
+
 * look and feel
-  #+begin_src elisp
+  #+begin_src emacs-lisp
     (load-theme 'spacemacs-dark)
 
     (use-package doom-themes
@@ -158,8 +168,10 @@
 
   #+end_src
 
+  #+RESULTS:
+
 * whitespace
-  #+begin_src elisp
+  #+begin_src emacs-lisp
 ;; Show trailing white spaces
 (setq-default show-trailing-whitespace nil)
 
@@ -169,16 +181,22 @@
 
   #+end_src
 
+  #+RESULTS:
+  | (lambda nil (delete-trailing-whitespace)) | whitespace-cleanup |
+
 * keybindings
-  #+begin_src elisp
+  #+begin_src emacs-lisp
     ;; global key bindings
     (global-set-key (kbd "M-o") 'other-window)
     (global-set-key (kbd "M-p") 'switch-to-buffer)
 
   #+end_src
 
+  #+RESULTS:
+  : switch-to-buffer
+
 * helm
-  #+begin_src elisp
+  #+begin_src emacs-lisp
      (use-package helm
        :ensure t
        :bind
@@ -200,8 +218,11 @@
        :bind (("M-S" . 'helm-swoop)))
   #+end_src
 
+  #+RESULTS:
+  : helm-swoop
+
 * projectile
-  #+begin_src elisp
+  #+begin_src emacs-lisp
     (use-package projectile
       :ensure t
       :custom
@@ -221,8 +242,11 @@
       (helm-projectile-on))
   #+end_src
 
+  #+RESULTS:
+  : t
+
 * company
-#+begin_src elisp
+#+begin_src emacs-lisp
   (use-package company
     :ensure t
     :config
@@ -235,8 +259,12 @@
       (define-key company-active-map (kbd "C-n") #'company-select-next-or-abort))
     )
 #+end_src
+
+#+RESULTS:
+: t
+
 * magit
-  #+begin_src elisp
+  #+begin_src emacs-lisp
 (use-package magit
   :ensure t
   :bind
@@ -259,8 +287,12 @@
 	       (t
 		'(display-buffer-same-window)))))))
   #+end_src
+
+  #+RESULTS:
+  : magit-status
+
 * yasnippets
-#+begin_src elisp
+#+begin_src emacs-lisp
   (use-package yasnippet
     :ensure t
     :config
@@ -269,8 +301,11 @@
   (use-package yasnippet-snippets
     :ensure t)
 #+end_src
+
+#+RESULTS:
+
 * python
-  #+begin_src elisp
+  #+begin_src emacs-lisp
     ;; (use-package elpy
     ;;   :ensure t
     ;;   :custom
@@ -297,7 +332,7 @@
   : t
 
 * c/c++
-#+begin_src elisp
+#+begin_src emacs-lisp
   (use-package clang-format+
     :ensure t
     :config
@@ -316,8 +351,11 @@
   (add-to-list 'auto-mode-alist '("\\.tpp\\'" . c++-mode))
 #+end_src
 
+#+RESULTS:
+: ((\.tpp\' . c++-mode) (\.odc\' . archive-mode) (\.odf\' . archive-mode) (\.odi\' . archive-mode) (\.otp\' . archive-mode) (\.odp\' . archive-mode) (\.otg\' . archive-mode) (\.odg\' . archive-mode) (\.ots\' . archive-mode) (\.ods\' . archive-mode) (\.odm\' . archive-mode) (\.ott\' . archive-mode) (\.odt\' . archive-mode) (docker-compose[^/]*\.ya?ml\' . docker-compose-mode) (Dockerfile\(?:\..*\)?\' . dockerfile-mode) (go\.mod\' . go-dot-mod-mode) (\.go\' . go-mode) (\(?:\(?:\(?:\.\(?:b\(?:\(?:abel\|ower\)rc\)\|json\(?:ld\)?\)\|composer\.lock\)\)\'\) . json-mode) (/git-rebase-todo\' . git-rebase-mode) (\.\(?:md\|markdown\|mkd\|mdown\|mkdn\|mdwn\)\' . markdown-mode) (\.ts\' . typescript-mode) (\.\(e?ya?\|ra\)ml\' . yaml-mode) (CMakeLists\.txt\' . cmake-mode) (\.cmake\' . cmake-mode) (\.at\' . autotest-mode) (\.gpg\(~\|\.~[0-9]+~\)?\' nil epa-file) (\.\(?:3fr\|a\(?:rw\|vs\)\|bmp[23]?\|c\(?:als?\|myka?\|r[2w]\|u[rt]\)\|d\(?:c[mrx]\|ds\|jvu\|ng\|px\)\|exr\|f\(?:ax\|its\)\|gif\(?:87\)?\|hrz\|ic\(?:on\|[bo]\)\|j\(?:\(?:pe\|[np]\)g\)\|k\(?:25\|dc\)\|m\(?:iff\|ng\|rw\|s\(?:l\|vg\)\|tv\)\|nef\|o\(?:rf\|tb\)\|p\(?:bm\|c\(?:ds\|[dltx]\)\|db\|ef\|gm\|i\(?:ct\|x\)\|jpeg\|n\(?:g\(?:24\|32\|8\)\|[gm]\)\|pm\|sd\|tif\|wp\)\|r\(?:a[fs]\|gb[ao]?\|l[ae]\)\|s\(?:c[rt]\|fw\|gi\|r[2f]\|un\|vgz?\)\|t\(?:ga\|i\(?:ff\(?:64\)?\|le\|m\)\|tf\)\|uyvy\|v\(?:da\|i\(?:car\|d\|ff\)\|st\)\|w\(?:bmp\|pg\)\|x\(?:3f\|bm\|cf\|pm\|wd\|[cv]\)\|y\(?:cbcra?\|uv\)\)\' . image-mode) (\.elc\' . elisp-byte-code-mode) (\.zst\' nil jka-compr) (\.dz\' nil jka-compr) (\.xz\' nil jka-compr) (\.lzma\' nil jka-compr) (\.lz\' nil jka-compr) (\.g?z\' nil jka-compr) (\.bz2\' nil jka-compr) (\.Z\' nil jka-compr) (\.vr[hi]?\' . vera-mode) (\(?:\.\(?:rbw?\|ru\|rake\|thor\|jbuilder\|rabl\|gemspec\|podspec\)\|/\(?:Gem\|Rake\|Cap\|Thor\|Puppet\|Berks\|Vagrant\|Guard\|Pod\)file\)\' . ruby-mode) (\.re?st\' . rst-mode) (\.py[iw]?\' . python-mode) (\.less\' . less-css-mode) (\.scss\' . scss-mode) (\.awk\' . awk-mode) (\.\(u?lpc\|pike\|pmod\(\.in\)?\)\' . pike-mode) (\.idl\' . idl-mode) (\.java\' . java-mode) (\.m\' . objc-mode) (\.ii\' . c++-mode) (\.i\' . c-mode) (\.lex\' . c-mode) (\.y\(acc\)?\' . c-mode) (\.h\' . c-or-c++-mode) (\.c\' . c-mode) (\.\(CC?\|HH?\)\' . c++-mode) (\.[ch]\(pp\|xx\|\+\+\)\' . c++-mode) (\.\(cc\|hh\)\' . c++-mode) (\.\(bat\|cmd\)\' . bat-mode) (\.[sx]?html?\(\.[a-zA-Z_]+\)?\' . mhtml-mode) (\.svgz?\' . image-mode) (\.svgz?\' . xml-mode) (\.x[bp]m\' . image-mode) (\.x[bp]m\' . c-mode) (\.p[bpgn]m\' . image-mode) (\.tiff?\' . image-mode) (\.gif\' . image-mode) (\.png\' . image-mode) (\.jpe?g\' . image-mode) (\.te?xt\' . text-mode) (\.[tT]e[xX]\' . tex-mode) (\.ins\' . tex-mode) (\.ltx\' . latex-mode) (\.dtx\' . doctex-mode) (\.org\' . org-mode) (\.el\' . emacs-lisp-mode) (Project\.ede\' . emacs-lisp-mode) (\.\(scm\|stk\|ss\|sch\)\' . scheme-mode) (\.l\' . lisp-mode) (\.li?sp\' . lisp-mode) (\.[fF]\' . fortran-mode) (\.for\' . fortran-mode) (\.p\' . pascal-mode) (\.pas\' . pascal-mode) (\.\(dpr\|DPR\)\' . delphi-mode) (\.ad[abs]\' . ada-mode) (\.ad[bs].dg\' . ada-mode) (\.\([pP]\([Llm]\|erl\|od\)\|al\)\' . perl-mode) (Imakefile\' . makefile-imake-mode) (Makeppfile\(?:\.mk\)?\' . makefile-makepp-mode) (\.makepp\' . makefile-makepp-mode) (\.mk\' . makefile-gmake-mode) (\.make\' . makefile-gmake-mode) ([Mm]akefile\' . makefile-gmake-mode) (\.am\' . makefile-automake-mode) (\.texinfo\' . texinfo-mode) (\.te?xi\' . texinfo-mode) (\.[sS]\' . asm-mode) (\.asm\' . asm-mode) (\.css\' . css-mode) (\.mixal\' . mixal-mode) (\.gcov\' . compilation-mode) (/\.[a-z0-9-]*gdbinit . gdb-script-mode) (-gdb\.gdb . gdb-script-mode) ([cC]hange\.?[lL]og?\' . change-log-mode) ([cC]hange[lL]og[-.][0-9]+\' . change-log-mode) (\$CHANGE_LOG\$\.TXT . change-log-mode) (\.scm\.[0-9]*\' . scheme-mode) (\.[ckz]?sh\'\|\.shar\'\|/\.z?profile\' . sh-mode) (\.bash\' . sh-mode) (\(/\|\`\)\.\(bash_\(profile\|history\|log\(in\|out\)\)\|z?log\(in\|out\)\)\' . sh-mode) (\(/\|\`\)\.\(shrc\|zshrc\|m?kshrc\|bashrc\|t?cshrc\|esrc\)\' . sh-mode) (\(/\|\`\)\.\([kz]shenv\|xinitrc\|startxrc\|xsession\)\' . sh-mode) (\.m?spec\' . sh-mode) (\.m[mes]\' . nroff-mode) (\.man\' . nroff-mode) (\.sty\' . latex-mode) (\.cl[so]\' . latex-mode) (\.bbl\' . latex-mode) (\.bib\' . bibtex-mode) (\.bst\' . bibtex-style-mode) (\.sql\' . sql-mode) (\.m[4c]\' . m4-mode) (\.mf\' . metafont-mode) (\.mp\' . metapost-mode) (\.vhdl?\' . vhdl-mode) (\.article\' . text-mode) (\.letter\' . text-mode) (\.i?tcl\' . tcl-mode) (\.exp\' . tcl-mode) (\.itk\' . tcl-mode) (\.icn\' . icon-mode) (\.sim\' . simula-mode) (\.mss\' . scribe-mode) (\.f9[05]\' . f90-mode) (\.f0[38]\' . f90-mode) (\.indent\.pro\' . fundamental-mode) (\.\(pro\|PRO\)\' . idlwave-mode) (\.srt\' . srecode-template-mode) (\.prolog\' . prolog-mode) (\.tar\' . tar-mode) (\.\(arc\|zip\|lzh\|lha\|zoo\|[jew]ar\|xpi\|rar\|cbr\|7z\|ARC\|ZIP\|LZH\|LHA\|ZOO\|[JEW]AR\|XPI\|RAR\|CBR\|7Z\)\' . archive-mode) (\.oxt\' . archive-mode) (\.\(deb\|[oi]pk\)\' . archive-mode) (\`/tmp/Re . text-mode) (/Message[0-9]*\' . text-mode) (\`/tmp/fol/ . text-mode) (\.oak\' . scheme-mode) (\.sgml?\' . sgml-mode) (\.x[ms]l\' . xml-mode) (\.dbk\' . xml-mode) (\.dtd\' . sgml-mode) (\.ds\(ss\)?l\' . dsssl-mode) (\.jsm?\' . javascript-mode) (\.json\' . javascript-mode) (\.jsx\' . js-jsx-mode) (\.[ds]?vh?\' . verilog-mode) (\.by\' . bovine-grammar-mode) (\.wy\' . wisent-grammar-mode) ([:/\]\..*\(emacs\|gnus\|viper\)\' . emacs-lisp-mode) (\`\..*emacs\' . emacs-lisp-mode) ([:/]_emacs\' . emacs-lisp-mode) (/crontab\.X*[0-9]+\' . shell-script-mode) (\.ml\' . lisp-mode) (\.ld[si]?\' . ld-script-mode) (ld\.?script\' . ld-script-mode) (\.xs\' . c-mode) (\.x[abdsru]?[cnw]?\' . ld-script-mode) (\.zone\' . dns-mode) (\.soa\' . dns-mode) (\.asd\' . lisp-mode) (\.\(asn\|mib\|smi\)\' . snmp-mode) (\.\(as\|mi\|sm\)2\' . snmpv2-mode) (\.\(diffs?\|patch\|rej\)\' . diff-mode) (\.\(dif\|pat\)\' . diff-mode) (\.[eE]?[pP][sS]\' . ps-mode) (\.\(?:PDF\|DVI\|OD[FGPST]\|DOCX?\|XLSX?\|PPTX?\|pdf\|djvu\|dvi\|od[fgpst]\|docx?\|xlsx?\|pptx?\)\' . doc-view-mode-maybe) (configure\.\(ac\|in\)\' . autoconf-mode) (\.s\(v\|iv\|ieve\)\' . sieve-mode) (BROWSE\' . ebrowse-tree-mode) (\.ebrowse\' . ebrowse-tree-mode) (#\*mail\* . mail-mode) (\.g\' . antlr-mode) (\.mod\' . m2-mode) (\.ses\' . ses-mode) (\.docbook\' . sgml-mode) (\.com\' . dcl-mode) (/config\.\(?:bat\|log\)\' . fundamental-mode) (\.\(?:[iI][nN][iI]\|[lL][sS][tT]\|[rR][eE][gG]\|[sS][yY][sS]\)\' . conf-mode) (\.la\' . conf-unix-mode) (\.ppd\' . conf-ppd-mode) (java.+\.conf\' . conf-javaprop-mode) (\.properties\(?:\.[a-zA-Z0-9._-]+\)?\' . conf-javaprop-mode) (\.toml\' . conf-toml-mode) (\.desktop\' . conf-desktop-mode) (\`/etc/\(?:DIR_COLORS\|ethers\|.?fstab\|.*hosts\|lesskey\|login\.?de\(?:fs\|vperm\)\|magic\|mtab\|pam\.d/.*\|permissions\(?:\.d/.+\)?\|protocols\|rpc\|services\)\' . conf-space-mode) (\`/etc/\(?:acpid?/.+\|aliases\(?:\.d/.+\)?\|default/.+\|group-?\|hosts\..+\|inittab\|ksysguarddrc\|opera6rc\|passwd-?\|shadow-?\|sysconfig/.+\)\' . conf-mode) ([cC]hange[lL]og[-.][-0-9a-z]+\' . change-log-mode) (/\.?\(?:gitconfig\|gnokiirc\|hgrc\|kde.*rc\|mime\.types\|wgetrc\)\' . conf-mode) (/\.\(?:enigma\|gltron\|gtk\|hxplayer\|net\|neverball\|qt/.+\|realplayer\|scummvm\|sversion\|sylpheed/.+\|xmp\)rc\' . conf-mode) (/\.\(?:gdbtkinit\|grip\|orbital/.+txt\|rhosts\|tuxracer/options\)\' . conf-mode) (/\.?X\(?:default\|resource\|re\)s\> . conf-xdefaults-mode) (/X11.+app-defaults/\|\.ad\' . conf-xdefaults-mode) (/X11.+locale/.+/Compose\' . conf-colon-mode) (/X11.+locale/compose\.dir\' . conf-javaprop-mode) (\.~?[0-9]+\.[0-9][-.0-9]*~?\' nil t) (\.\(?:orig\|in\|[bB][aA][kK]\)\' nil t) ([/.]c\(?:on\)?f\(?:i?g\)?\(?:\.[a-zA-Z0-9._-]+\)?\' . conf-mode-maybe) (\.[1-9]\' . nroff-mode) (\.tgz\' . tar-mode) (\.tbz2?\' . tar-mode) (\.txz\' . tar-mode) (\.tzst\' . tar-mode))
+
 ** c style
-   #+begin_src elisp
+   #+begin_src emacs-lisp
     ;; cc style
 
     ;; This was created by using c-guess-no-install and then c-guess-view
@@ -404,8 +442,11 @@
 
    #+end_src
 
+   #+RESULTS:
+   : my-cc-style
+
 * go
-#+begin_src elisp
+#+begin_src emacs-lisp
   (use-package go-mode
     :ensure t
     :config
@@ -420,8 +461,12 @@
     (add-hook 'before-save-hook #'lsp-organize-imports t t))
   (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
 #+end_src
+
+#+RESULTS:
+| lsp-go-install-save-hooks | (lambda nil (lsp-deferred)) |
+
 * rust
-#+begin_src elisp
+#+begin_src emacs-lisp
   (use-package rust-mode
     :config
     (add-hook 'rust-mode-hook
@@ -430,8 +475,12 @@
 			   (lsp))))
     (setq rust-format-on-save t))
 #+end_src
+
+#+RESULTS:
+| use-package | Cannot load rust-mode | :error | nil |
+
 * web
-#+begin_src elisp
+#+begin_src emacs-lisp
     (use-package tide
       :ensure t
       :config
@@ -502,8 +551,10 @@
       :ensure t)
 #+end_src
 
+#+RESULTS:
+
 * docker
-#+begin_src elisp
+#+begin_src emacs-lisp
   (use-package docker
     :ensure t)
 
@@ -513,20 +564,33 @@
   (use-package docker-compose-mode
     :ensure t)
 #+end_src
+
+#+RESULTS:
+
 * yaml
-#+begin_src elisp
+#+begin_src emacs-lisp
   (use-package yaml-mode
     :ensure t
     :config
     (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode)))
 #+end_src
+
+#+RESULTS:
+: t
+
 * non package scripts
-#+begin_src elisp
+#+begin_src emacs-lisp
   ;; non package scripts
   (load "gendoxy.el")
 #+end_src
 
+#+RESULTS:
+: t
+
 * my scripts
-  #+begin_src elisp
+  #+begin_src emacs-lisp
     (load-file (concat user-emacs-directory "/myscripts/my-projectile.el"))
   #+end_src
+
+  #+RESULTS:
+  : t
