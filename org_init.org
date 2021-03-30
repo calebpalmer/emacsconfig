@@ -79,104 +79,109 @@
 
 * look and feel
   #+begin_src emacs-lisp
-    (load-theme 'spacemacs-dark)
+  ;;(load-theme 'spacemacs-dark)
 
-    (use-package doom-themes
-      :ensure t
-      :config
-      (load-theme 'doom-one)
-      ;;(doom-themes-neotree-config) ;; loads doom theme for the file tree Neotree
-      (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-	    doom-themes-enable-italic t) ; if nil, italics is universally disabled
-      ;; Enable all-the-icons beautiful icons for the Neotree doom theme
-      ;;(setq doom-neotree-enable-file-icons t)
-      ;;(setq doom-neotree-enable-folder-icons t)
-      ;;(setq doom-neotree-enable-chevron-icons t)
-      ;; Enables different colors for different file types for the Neotree doom theme
-      ;;(setq doom-neotree-enable-type-colors t)
+  ;;(use-package doom-themes
+    :ensure t
+    :config
+    (load-theme 'doom-one)
+    ;;(doom-themes-neotree-config) ;; loads doom theme for the file tree Neotree
+    (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+	  doom-themes-enable-italic t) ; if nil, italics is universally disabled
+    ;; Enable all-the-icons beautiful icons for the Neotree doom theme
+    ;;(setq doom-neotree-enable-file-icons t)
+    ;;(setq doom-neotree-enable-folder-icons t)
+    ;;(setq doom-neotree-enable-chevron-icons t)
+    ;; Enables different colors for different file types for the Neotree doom theme
+    ;;(setq doom-neotree-enable-type-colors t)
+    )
+
+  (add-hook 'after-init-hook 'global-hl-line-mode)
+  ;; Highlight corresponding parentheses when cursor is on one
+  (setq show-paren-delay 0) ;; shows matching parenthesis asap
+  (show-paren-mode t)
+
+  ;; Proper line wrapping
+  (global-visual-line-mode t)
+
+  ;; disable toolbar
+  (tool-bar-mode -1)
+  (set-default 'truncate-lines t)
+
+
+  ;; scroll settings
+  (setq scroll-preserve-screen-position 1)
+  (setq scroll-step            1
+	scroll-conservatively  10000)
+
+  ;; zoom
+  (load "zoom-frm.el")
+  (global-set-key (kbd "C-x C-=") 'zoom-in)
+  (global-set-key (kbd "C-x C--") 'zoom-out)
+
+  ;; Adds Nice Icons to Emacs so that other themes can use them (required for Doom theme below)
+  ;; run M-x all-the-icons-install-fonts RET to install the fonts
+  (use-package all-the-icons
+    :ensure t)
+
+  (use-package smart-mode-line
+    :ensure t
+    :config
+    ;; Smart-mode-line makes the mode-line better to read
+    ;; first remove annoying message at startup that
+    ;; asks if you want to run the theme lisp code
+    (setq sml/no-confirm-load-theme t)
+    ;; load smart-mode-line
+    ;; (setq sml/theme 'dark) ;; changes the theme to dark
+    (sml/setup) ;; automatically figures out a theme if none is specified
+    )
+
+  (use-package ace-window
+    :ensure t
+    :bind
+    (("M-S-o" . 'ace-window)
+     ("M-o" . 'ace-window))
+    :custom
+    (aw-scope 'frame "Only consider the current frame."))
+
+  (use-package eyebrowse
+    :ensure t
+    :diminish eyebrowse-mode
+    :config (progn
+	      (define-key eyebrowse-mode-map (kbd "M-1") 'eyebrowse-switch-to-window-config-1)
+	      (define-key eyebrowse-mode-map (kbd "M-2") 'eyebrowse-switch-to-window-config-2)
+	      (define-key eyebrowse-mode-map (kbd "M-3") 'eyebrowse-switch-to-window-config-3)
+	      (define-key eyebrowse-mode-map (kbd "M-4") 'eyebrowse-switch-to-window-config-4)
+	      (define-key eyebrowse-mode-map (kbd "M-5") 'eyebrowse-switch-to-window-config-5)
+	      (define-key eyebrowse-mode-map (kbd "M-6") 'eyebrowse-switch-to-window-config-6)
+	      (define-key eyebrowse-mode-map (kbd "M-7") 'eyebrowse-switch-to-window-config-7)
+	      (define-key eyebrowse-mode-map (kbd "M-8") 'eyebrowse-switch-to-window-config-8)
+	      (eyebrowse-mode t)
+	      (setq eyebrowse-new-workspace t)))
+
+  (put 'narrow-to-region 'disabled nil)
+
+  (use-package treemacs
+    :ensure t
+    :bind (("<f8>" . 'treemacs))
+    :config
+    (progn
+      (setq treemacs-width 60)
+      (treemacs-follow-mode nil)
+      (treemacs-filewatch-mode t)
       )
+    )
 
-    (add-hook 'after-init-hook 'global-hl-line-mode)
-    ;; Highlight corresponding parentheses when cursor is on one
-    (setq show-paren-delay 0) ;; shows matching parenthesis asap
-    (show-paren-mode t)
+  (use-package treemacs-projectile
+    :ensure t)
 
-    ;; Proper line wrapping
-    (global-visual-line-mode t)
+  (use-package popwin
+    :ensure t)
 
-    ;; disable toolbar
-    (tool-bar-mode -1)
-    (set-default 'truncate-lines t)
-
-
-    ;; scroll settings
-    (setq scroll-preserve-screen-position 1)
-    (setq scroll-step            1
-	  scroll-conservatively  10000)
-
-    ;; zoom
-    (load "zoom-frm.el")
-    (global-set-key (kbd "C-x C-=") 'zoom-in)
-    (global-set-key (kbd "C-x C--") 'zoom-out)
-
-    ;; Adds Nice Icons to Emacs so that other themes can use them (required for Doom theme below)
-    ;; run M-x all-the-icons-install-fonts RET to install the fonts
-    (use-package all-the-icons
-      :ensure t)
-
-    (use-package smart-mode-line
-      :ensure t
-      :config
-      ;; Smart-mode-line makes the mode-line better to read
-      ;; first remove annoying message at startup that
-      ;; asks if you want to run the theme lisp code
-      (setq sml/no-confirm-load-theme t)
-      ;; load smart-mode-line
-      ;; (setq sml/theme 'dark) ;; changes the theme to dark
-      (sml/setup) ;; automatically figures out a theme if none is specified
-      )
-
-    (use-package ace-window
-      :ensure t
-      :bind
-      (("M-S-o" . 'ace-window)
-       ("M-o" . 'ace-window))
-      :custom
-      (aw-scope 'frame "Only consider the current frame."))
-
-    (use-package eyebrowse
-      :ensure t
-      :diminish eyebrowse-mode
-      :config (progn
-		(define-key eyebrowse-mode-map (kbd "M-1") 'eyebrowse-switch-to-window-config-1)
-		(define-key eyebrowse-mode-map (kbd "M-2") 'eyebrowse-switch-to-window-config-2)
-		(define-key eyebrowse-mode-map (kbd "M-3") 'eyebrowse-switch-to-window-config-3)
-		(define-key eyebrowse-mode-map (kbd "M-4") 'eyebrowse-switch-to-window-config-4)
-		(define-key eyebrowse-mode-map (kbd "M-5") 'eyebrowse-switch-to-window-config-5)
-		(define-key eyebrowse-mode-map (kbd "M-6") 'eyebrowse-switch-to-window-config-6)
-		(define-key eyebrowse-mode-map (kbd "M-7") 'eyebrowse-switch-to-window-config-7)
-		(define-key eyebrowse-mode-map (kbd "M-8") 'eyebrowse-switch-to-window-config-8)
-		(eyebrowse-mode t)
-		(setq eyebrowse-new-workspace t)))
-
-    (put 'narrow-to-region 'disabled nil)
-
-    (use-package treemacs
-      :ensure t
-      :bind (("<f8>" . 'treemacs))
-      :config
-      (progn
-	(setq treemacs-width 60)
-	(treemacs-follow-mode nil)
-	(treemacs-filewatch-mode t)
-	)
-      )
-
-    (use-package treemacs-projectile
-      :ensure t)
-
-    (use-package popwin
-      :ensure t)
+(use-package vscode-dark-plus-theme
+  :ensure t
+  :config
+  (load-theme 'vscode-dark-plus t))
 
   #+end_src
 
@@ -241,7 +246,7 @@
       (projectile-switch-project-action 'projectile-commander)
       (projectile-current-project-on-switch 'keep)
       :config
-      (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+      (define-key projectile-mode-map (kbd "M-P") 'projectile-command-map)
       (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
       (add-to-list 'projectile-globally-ignored-directories ".ccls-cache")
       (add-to-list 'projectile-globally-ignored-directories "debugbuild")
