@@ -476,19 +476,21 @@
 
 * go
 #+begin_src emacs-lisp
-  (use-package go-mode
-    :ensure t
-    :config
-    (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
-    (add-hook 'go-mode-hook (lambda ()
-			      (lsp-deferred))))
+(use-package go-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
+  (add-hook 'go-mode-hook (lambda ()
+			    (lsp-deferred)
+			    (setq tab-width 4))))
 
-  ;; Set up before-save hooks to format buffer and add/delete imports.
-  ;; Make sure you don't have other gofmt/goimports hooks enabled.
-  (defun lsp-go-install-save-hooks ()
-    (add-hook 'before-save-hook #'lsp-format-buffer t t)
-    (add-hook 'before-save-hook #'lsp-organize-imports t t))
-  (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
+;; Set up before-save hooks to format buffer and add/delete imports.
+;; Make sure you don't have other gofmt/goimports hooks enabled.
+(defun lsp-go-install-save-hooks ()
+  (add-hook 'before-save-hook #'lsp-format-buffer t t)
+  (add-hook 'before-save-hook #'lsp-organize-imports t t))
+(add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
+
 #+end_src
 
 #+RESULTS:
