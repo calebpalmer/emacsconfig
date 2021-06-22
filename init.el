@@ -131,26 +131,26 @@
   :custom
   (aw-scope 'frame "Only consider the current frame."))
 
-;; (use-package eyebrowse
-;;   :ensure t
-;;   :diminish eyebrowse-mode
-;;   :config (progn
-;;	    (define-key eyebrowse-mode-map (kbd "M-1") 'eyebrowse-switch-to-window-config-1)
-;;	    (define-key eyebrowse-mode-map (kbd "M-2") 'eyebrowse-switch-to-window-config-2)
-;;	    (define-key eyebrowse-mode-map (kbd "M-3") 'eyebrowse-switch-to-window-config-3)
-;;	    (define-key eyebrowse-mode-map (kbd "M-4") 'eyebrowse-switch-to-window-config-4)
-;;	    (define-key eyebrowse-mode-map (kbd "M-5") 'eyebrowse-switch-to-window-config-5)
-;;	    (define-key eyebrowse-mode-map (kbd "M-6") 'eyebrowse-switch-to-window-config-6)
-;;	    (define-key eyebrowse-mode-map (kbd "M-7") 'eyebrowse-switch-to-window-config-7)
-;;	    (define-key eyebrowse-mode-map (kbd "M-8") 'eyebrowse-switch-to-window-config-8)
-;;	    (eyebrowse-mode t)
-;;	    (setq eyebrowse-new-workspace t)))
+(use-package eyebrowse
+  :ensure t
+  :diminish eyebrowse-mode
+  :config (progn
+	    (define-key eyebrowse-mode-map (kbd "M-1") 'eyebrowse-switch-to-window-config-1)
+	    (define-key eyebrowse-mode-map (kbd "M-2") 'eyebrowse-switch-to-window-config-2)
+	    (define-key eyebrowse-mode-map (kbd "M-3") 'eyebrowse-switch-to-window-config-3)
+	    (define-key eyebrowse-mode-map (kbd "M-4") 'eyebrowse-switch-to-window-config-4)
+	    (define-key eyebrowse-mode-map (kbd "M-5") 'eyebrowse-switch-to-window-config-5)
+	    (define-key eyebrowse-mode-map (kbd "M-6") 'eyebrowse-switch-to-window-config-6)
+	    (define-key eyebrowse-mode-map (kbd "M-7") 'eyebrowse-switch-to-window-config-7)
+	    (define-key eyebrowse-mode-map (kbd "M-8") 'eyebrowse-switch-to-window-config-8)
+	    (eyebrowse-mode t)
+	    (setq eyebrowse-new-workspace t)))
 
-(use-package perspective
-  :bind
-  ("C-x C-b" . persp-list-buffers)
-  :config
-  (persp-mode))
+;; (use-package perspective
+;;   :bind
+;;   ("C-x C-b" . persp-list-buffers)
+;;   :config
+;;   (persp-mode))
 
 (put 'narrow-to-region 'disabled nil)
 
@@ -235,6 +235,7 @@
 
 (use-package company
   :ensure t
+  :bind (("<C-tab>" . 'company-complete))
   :config
   (setq company-tooltip-align-annotations t
 	company-minimum-prefix-length 1
