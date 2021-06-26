@@ -516,3 +516,12 @@
 (load "gendoxy.el")
 
 (load-file (concat user-emacs-directory "/myscripts/my-projectile.el"))
+
+;; activate python environment using pipenv
+(defun cap/pipenv-activate ()
+  (interactive)
+  (progn
+     (setenv "PIPENV_IGNORE_VIRTUALENVS" "1")
+     (pyvenv-activate
+      (string-trim (shell-command-to-string "pipenv --venv"))))
+  )
